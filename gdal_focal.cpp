@@ -14,9 +14,8 @@ int main(int argc, char **argv) {
 
 	setlocale(LC_ALL, "Portuguese");
 
-	// const char *input_filename = "C:\\Users\\eduardo\\Documents\\Dados\\nit_mapbiomas_stack.tif";
-	const char *input_filename = "C:\\Users\\eduardo\\Documents\\Dados\\B5.tif";
-	const char *output_filename = "C:\\Users\\eduardo\\Documents\\Dados\\xy_mw.tif";
+	const char *input_filename = argv[1];
+	const char *output_filename = argv[2];
 
 	GDALDataset *in_ds;
 	GDALDataset *out_ds;
