@@ -75,7 +75,7 @@ int main(int argc, char **argv) {
 	GDALClose(out_ds);
 	GDALDestroyDriverManager();
 
-	puts("Processo concluído.");
-	cin.get();
+	cout << "gdal_focal: Process completed on: " << argv[1] << endl;
+	cout << "gdal_focal: Your output image " << argv[2] << " is ready!" << endl;
 	return 0;
 }
