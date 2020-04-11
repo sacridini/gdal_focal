@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdint>
 #include <clocale>
+#include <cmath>
 #include <vector>
 #include <gdal_priv.h>
 #include <cpl_string.h>
