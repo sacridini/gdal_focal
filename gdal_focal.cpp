@@ -11,6 +11,17 @@ using namespace std;
 typedef vector<float> Array;
 typedef vector<Array> Matrix;
 
+Matrix focal(vector<int> values, int size) {
+
+	Matrix kernel(size, Array(size));
+
+	for (int i = 0; i < values.size(); i++) {
+		kernel[i / size][i % size] = values[i];
+	}
+
+	return kernel;
+}
+
 Matrix gaussian_blur(int height, int width, double sigma)
 {
     Matrix kernel(height, Array(width));
