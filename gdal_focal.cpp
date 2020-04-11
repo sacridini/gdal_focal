@@ -10,6 +10,28 @@ using namespace std;
 typedef vector<float> Array;
 typedef vector<Array> Matrix;
 
+Matrix getGaussian(int height, int width, double sigma)
+{
+    Matrix kernel(height, Array(width));
+    double sum=0.0;
+    int i,j;
+
+    for (i=0 ; i<height ; i++) {
+        for (j=0 ; j<width ; j++) {
+            kernel[i][j] = exp(-(i*i+j*j)/(2*sigma*sigma))/(2*M_PI*sigma*sigma);
+            sum += kernel[i][j];
+        }
+    }
+
+    for (i=0 ; i<height ; i++) {
+        for (j=0 ; j<width ; j++) {
+            kernel[i][j] /= sum;
+        }
+    }
+
+    return kernel;
+}
+
 int main(int argc, char **argv) {
 
 	setlocale(LC_ALL, "Portuguese");
@@ -21,7 +43,6 @@ int main(int argc, char **argv) {
 	GDALDataset *out_ds;
 	GDALDriver *geotiff;
 	GDALAllRegister();
-	
 
 	in_ds = (GDALDataset *)GDALOpen(input_filename, GA_ReadOnly);
 
@@ -38,7 +59,8 @@ int main(int argc, char **argv) {
 	in_ds->GetGeoTransform(transform);
 	proj = in_ds->GetProjectionRef();
 
-	Matrix filter(3, Array(3));
+	// Matrix filter(3, Array(3));
+	Matrix filter = getGaussian(3, 3, 10.0);
 
 	int filterHeight = filter.size();
 	int filterWidth = filter[0].size();
