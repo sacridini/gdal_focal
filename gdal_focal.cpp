@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
 			for (h = i; h < i + filterHeight; h++) {
 				for (w = j; w < j + filterWidth; w++) {
 					in_ds->GetRasterBand(1)->RasterIO(GF_Read, w, h, 1, 1, input_pixel, 1, 1, GDT_Float32, 0, 0);
-					*output_pixel += filter[h - i][w - j] + *input_pixel;
+					*output_pixel += filter[h - i][w - j] * *input_pixel;
 				}
 			}
 			out_ds->GetRasterBand(1)->RasterIO(GF_Write, j, i, 1, 1, output_pixel, 1, 1, GDT_Float32, 0, 0);
