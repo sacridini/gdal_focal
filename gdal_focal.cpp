@@ -78,8 +78,8 @@ int main(int argc, char **argv) {
 	int padding = (filter.size() - 1) / 2;
 	int filterHeight = filter.size();
 	int filterWidth = filter[0].size();
-	int newImageHeight = (nrows - filterHeight+2*padding)/(stride) + 1;
-	int newImageWidth = (ncols - filterWidth+2*padding)/(stride) + 1;
+	int newImageHeight = floor((nrows - filterHeight+2*padding)/(stride) + 1);
+	int newImageWidth = floor((ncols - filterWidth+2*padding)/(stride) + 1);
 	int d, i, j, h, w;
 
 	geotiff = GetGDALDriverManager()->GetDriverByName("GTiff");
