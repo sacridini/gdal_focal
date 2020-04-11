@@ -22,21 +22,21 @@ Matrix focal(vector<int> values, int size) {
 	return kernel;
 }
 
-Matrix gaussian_blur(int height, int width, double sigma) {
-	
-    Matrix kernel(height, Array(width));
+Matrix gaussian_blur(int size, double sigma) {
+
+    Matrix kernel(size, Array(size));
     double sum=0.0;
     int i,j;
 
-    for (i=0 ; i<height ; i++) {
-        for (j=0 ; j<width ; j++) {
+    for (i=0 ; i<size ; i++) {
+        for (j=0 ; j<size ; j++) {
             kernel[i][j] = exp(-(i*i+j*j)/(2*sigma*sigma))/(2*M_PI*sigma*sigma);
             sum += kernel[i][j];
         }
     }
 
-    for (i=0 ; i<height ; i++) {
-        for (j=0 ; j<width ; j++) {
+    for (i=0 ; i<size ; i++) {
+        for (j=0 ; j<size ; j++) {
             kernel[i][j] /= sum;
         }
     }
@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
 	proj = in_ds->GetProjectionRef();
 
 	// Matrix filter(3, Array(3));
-	Matrix filter = gaussian_blur(3, 3, 10.0);
+	Matrix filter = gaussian_blur(3, 10.0);
 
 	int filterHeight = filter.size();
 	int filterWidth = filter[0].size();
