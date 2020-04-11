@@ -22,8 +22,8 @@ Matrix focal(vector<int> values, int size) {
 	return kernel;
 }
 
-Matrix gaussian_blur(int height, int width, double sigma)
-{
+Matrix gaussian_blur(int height, int width, double sigma) {
+	
     Matrix kernel(height, Array(width));
     double sum=0.0;
     int i,j;
