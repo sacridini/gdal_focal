@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdint>
 #include <clocale>
-#include <cmath>
+#include <cmath>	
 #include <vector>
 #include <gdal_priv.h>
 #include <cpl_string.h>
@@ -11,7 +11,7 @@ using namespace std;
 typedef vector<float> Array;
 typedef vector<Array> Matrix;
 
-Matrix getGaussian(int height, int width, double sigma)
+Matrix gaussian_blur(int height, int width, double sigma)
 {
     Matrix kernel(height, Array(width));
     double sum=0.0;
@@ -61,7 +61,7 @@ int main(int argc, char **argv) {
 	proj = in_ds->GetProjectionRef();
 
 	// Matrix filter(3, Array(3));
-	Matrix filter = getGaussian(3, 3, 10.0);
+	Matrix filter = gaussian_blur(3, 3, 10.0);
 
 	int filterHeight = filter.size();
 	int filterWidth = filter[0].size();
