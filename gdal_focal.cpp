@@ -74,16 +74,19 @@ int main(int argc, char **argv) {
 	// Matrix filter(3, Array(3));
 	Matrix filter = gaussian_blur(3, 10.0);
 
+	int stride = 1;
+	int padding = (filter.size() - 1) / 2;
 	int filterHeight = filter.size();
 	int filterWidth = filter[0].size();
-	int newImageHeight = nrows - filterHeight + 1;
-	int newImageWidth = ncols - filterWidth + 1;
+	int newImageHeight = (nrows - filterHeight+2*padding)/(stride) + 1;
+	int newImageWidth = (ncols - filterWidth+2*padding)/(stride) + 1;
 	int d, i, j, h, w;
 
 	geotiff = GetGDALDriverManager()->GetDriverByName("GTiff");
 	papszOptions = CSLSetNameValue(papszOptions, "COMPRESS", "DEFLATE");
 	out_ds = geotiff->Create(output_filename, newImageWidth, newImageHeight, 1, GDT_Float32, papszOptions);
 	out_ds->SetGeoTransform(transform);
+	out_ds->GetRasterBand(1)->Fill(0);
 	out_ds->GetRasterBand(1)->SetNoDataValue(nodata);
 	out_ds->SetProjection(proj);
 
